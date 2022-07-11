@@ -1,5 +1,4 @@
 const express = require("express");
-const { v4: uuidv4 } = require("uuid");
 const db = require("./db");
 const cors = require("cors");
 
