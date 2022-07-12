@@ -23,8 +23,8 @@ router.route("/seats").post((req, res) => {
 router.route("/seats/:id").put((req, res) => {
   const id = req.params.id;
   const { day, seat, client, email } = req.body;
-  const curresntSeat = db.seats.find((seat) => seat.id == id);
-  const index = db.seats.indexOf(curresntSeat);
+  const currentSeat = db.seats.find((seat) => seat.id == id);
+  const index = db.seats.indexOf(currentSeat);
   const newSeat = {
     id: id,
     day: day,
