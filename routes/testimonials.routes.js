@@ -8,11 +8,7 @@ router.route("/testimonials").get((req, res) => {
 });
 
 router.route("/testimonials/random").get((req, res) => {
-  res.json(
-    db.testimonials.find(
-      (req) => req.id === Math.floor(Math.random() * db.testimonials.length) + 1
-    )
-  );
+  res.json(db.testimonials[Math.floor(Math.random() * db.testimonials.length)]);
 });
 
 router.route("/testimonials/:id").get((req, res) => {
