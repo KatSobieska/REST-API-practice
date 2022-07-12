@@ -8,7 +8,7 @@ router.route("/concerts").get((req, res) => {
 });
 
 router.route("/concerts/:id").get((req, res) => {
-  res.json(db.concerts.find((data) => data.id == req.params.id));
+  res.json(db.concerts.find((concert) => concert.id == req.params.id));
 });
 
 router.route("/concerts").post((req, res) => {
@@ -23,7 +23,7 @@ router.route("/concerts").post((req, res) => {
 router.route("/concerts/:id").put((req, res) => {
   const id = req.params.id;
   const { performer, genre, price, day, image } = req.body;
-  const concert = db.concerts.find((req) => req.id == id);
+  const concert = db.concerts.find((concertElem) => concertElem.id == id);
   const index = db.concerts.indexOf(concert);
   const newConcert = {
     id: id,
@@ -38,7 +38,9 @@ router.route("/concerts/:id").put((req, res) => {
 });
 
 router.route("/concerts/:id").delete((req, res) => {
-  const concert = db.concerts.find((data) => data.id == req.params.id);
+  const concert = db.concerts.find(
+    (concertElem) => concertElem.id == req.params.id
+  );
   const index = db.concerts.indexOf(concert);
   db.concerts.splice(index, 1);
   res.json({ message: "OK" });
