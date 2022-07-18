@@ -68,6 +68,8 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
       {requests["LOAD_SEATS"] && requests["LOAD_SEATS"].error && (
         <Alert color="warning">Couldn't load seats...</Alert>
       )}
+      Free seats :{50 - seats.filter((item) => item.day === chosenDay).length}
+      /50
     </div>
   );
 };
