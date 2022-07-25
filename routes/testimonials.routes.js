@@ -1,54 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const db = require("./../db");
-const { v4: uuidv4 } = require("uuid");
+const TestimonialController = require("../controllers/testimonials.controller");
 
-router.route("/testimonials").get((req, res) => {
-  res.json(db.testimonials);
-});
-
-router.route("/testimonials/random").get((req, res) => {
-  res.json(db.testimonials[Math.floor(Math.random() * db.testimonials.length)]);
-});
-
-router.route("/testimonials/:id").get((req, res) => {
-  res.json(
-    db.testimonials.find((testimonial) => testimonial.id == req.params.id)
-  );
-});
-
-router.route("/testimonials").post((req, res) => {
-  const { author, text } = req.body;
-  const id = uuidv4();
-  const newTestimonial = { id: id, author, text };
-  db.testimonials.push(newTestimonial);
-
-  res.json({ message: "OK" });
-});
-
-router.route("/testimonials/:id").put((req, res) => {
-  const id = req.params.id;
-  const { author, text } = req.body;
-  const testimonial = db.testimonials.find(
-    (testimonialElem) => testimonialElem.id == id
-  );
-  const index = db.testimonials.indexOf(testimonial);
-  const newTestimonial = {
-    id: id,
-    author: author,
-    text: text,
-  };
-  db.testimonials[index] = newTestimonial;
-  res.json({ message: "OK" });
-});
-
-router.route("/testimonials/:id").delete((req, res) => {
-  const testimonial = db.testimonials.find(
-    (testimonialElem) => testimonialElem.id == req.params.id
-  );
-  const index = db.testimonials.indexOf(testimonial);
-  db.testimonials.splice(index, 1);
-  res.json({ message: "OK" });
-});
+router.get("/testimonials", TestimonialController.getAll);
+router.get("/testimonials/:id", TestimonialController.getById);
+router.post("/testimonials", TestimonialController.addTestimonial);
+router.put("/testimonials/:id", TestimonialController.updateTestimonial);
+router.delete("/testimonials/:id", TestimonialController.deleteTestimonial);
 
 module.exports = router;
