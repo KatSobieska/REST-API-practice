@@ -26,13 +26,16 @@ app.use((req, res) => {
   res.status(404).json({ message: "Not found..." });
 });
 
-mongoose.connect(
-  "mongodb+srv://kat-sobieska:tjDVYxLEqVJZRaBb@cluster0.ii8kz.mongodb.net/NewWaveDB",
-  {
-    useNewUrlParser: true,
-  }
-);
+const NODE_ENV = process.env.NODE_ENV;
+let dbUri = "";
 
+if (NODE_ENV === "production") dbUri = "url to remote db";
+else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/NewWaveDBtest";
+else
+  dbUri =
+    "mongodb+srv://kat-sobieska:tjDVYxLEqVJZRaBb@cluster0.ii8kz.mongodb.net/NewWaveDB";
+
+mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once("open", () => {
@@ -42,6 +45,8 @@ db.on("error", (err) => {
   console.log("Error" + err);
 });
 
-app.listen(process.env.PORT || 8000, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
   console.log("Server is running on port: 8000");
 });
+
+module.exports = server;
