@@ -27,13 +27,14 @@ app.use((req, res) => {
 });
 
 const NODE_ENV = process.env.NODE_ENV;
+const NWF_USERNAME = process.env.NWF_USERNAME;
+const NWF_PASSWORD = process.end.NWF_PASSWORD;
 let dbUri = "";
 
 if (NODE_ENV === "production") dbUri = "url to remote db";
 else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/NewWaveDBtest";
 else
-  dbUri =
-    "mongodb+srv://kat-sobieska:tjDVYxLEqVJZRaBb@cluster0.ii8kz.mongodb.net/NewWaveDB";
+  dbUri = `mongodb+srv://${NWF_USERNAME}:${NWF_PASSWORD}@cluster0.ii8kz.mongodb.net/NewWaveDB`;
 
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
