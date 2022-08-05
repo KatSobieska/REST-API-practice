@@ -28,7 +28,8 @@ app.use((req, res) => {
 
 const NODE_ENV = process.env.NODE_ENV;
 const NWF_USERNAME = process.env.NWF_USERNAME;
-const NWF_PASSWORD = process.end.NWF_PASSWORD;
+const NWF_PASSWORD = process.env.NWF_PASSWORD;
+
 let dbUri = "";
 
 if (NODE_ENV === "production") dbUri = "url to remote db";
