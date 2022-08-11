@@ -27,7 +27,8 @@ const OrderTicketForm = () => {
   const requests = useSelector(getRequests);
 
   const socket = io(
-    process.env.NODE_ENV === "production" ? "/" : "http://localhost:8000/"
+    process.env.NODE_ENV === "production" ? "/" : "http://localhost:8000/",
+    { withCredentials: false }
   );
 
   useEffect(() => {
