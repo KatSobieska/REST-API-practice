@@ -34,10 +34,10 @@ const NWF_PASSWORD = process.env.NWF_PASSWORD;
 
 let dbUri = "";
 
-if (NODE_ENV === "production") dbUri = "url to remote db";
-else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/NewWaveDBtest";
-else
+if (NODE_ENV === "production")
   dbUri = `mongodb+srv://${NWF_USERNAME}:${NWF_PASSWORD}@cluster0.ii8kz.mongodb.net/NewWaveDB`;
+else if (NODE_ENV === "test") dbUri = "mongodb://localhost:27017/NewWaveDBtest";
+else dbUri = "mongodb://localhost:27017/NewWaveDB";
 
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
